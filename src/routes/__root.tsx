@@ -95,10 +95,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Karla:wght@300;400;500;600&display=swap",
+        rel: "preload",
+        as: "style",
+        href: FONTS_HREF,
       },
     ],
+    scripts: [
+      {
+        children: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href=${JSON.stringify(
+          FONTS_HREF,
+        )};l.media='print';l.onload=function(){l.media='all'};document.head.appendChild(l);})();`,
+      },
+    ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
