@@ -239,9 +239,9 @@ function Index() {
 
             {/* Product details */}
             <div className="animate-rise md:pt-12">
-              <h1 className="font-display text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
+              <h1 className="font-sans text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
                 CHIVALROUS{" "}
-                <span className="text-2xl font-normal text-silver sm:text-3xl">
+                <span className="text-2xl font-medium text-silver sm:text-3xl">
                   (100ML)
                 </span>
               </h1>
