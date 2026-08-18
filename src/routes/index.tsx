@@ -170,10 +170,10 @@ function Index() {
             <Wordmark />
           </a>
 
-          <div className="flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-2 sm:gap-5">
             <a
               href="#shop"
-              className="rounded-sm bg-ink px-4 py-2 text-xs font-semibold tracking-[0.1em] uppercase text-ivory transition-opacity hover:opacity-85 sm:px-5"
+              className="rounded-sm bg-ink px-3 py-2 text-[10px] font-semibold tracking-[0.08em] uppercase text-ivory transition-opacity hover:opacity-85 sm:px-5 sm:text-xs sm:tracking-[0.1em]"
             >
               Buy Now
             </a>
