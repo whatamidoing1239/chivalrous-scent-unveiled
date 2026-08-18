@@ -121,7 +121,7 @@ function CloseIcon({ className = "" }: { className?: string }) {
 function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`font-sans text-xl font-semibold tracking-[0.22em] uppercase ${className}`}
+      className={`font-sans text-lg font-semibold tracking-[0.18em] uppercase sm:text-xl sm:tracking-[0.22em] ${className}`}
     >
       SARKAR
     </span>
