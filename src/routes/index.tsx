@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import bottle from "@/assets/chivalrous-bottle.png.asset.json";
+import bottle from "@/assets/chivalrous-bottle.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,6 +20,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "preload", as: "image", href: bottle.url, fetchpriority: "high" }],
   }),
   component: Index,
 });
@@ -230,8 +231,8 @@ function Index() {
               <img
                 src={bottle.url}
                 alt={ALT}
-                width={1004}
-                height={1004}
+                width={760}
+                height={760}
                 fetchPriority="high"
                 className="relative w-full max-w-md rounded-sm object-contain"
               />
@@ -384,8 +385,8 @@ function Index() {
                 src={bottle.url}
                 alt={ALT}
                 loading="lazy"
-                width={1004}
-                height={1004}
+                width={760}
+                height={760}
                 className="relative w-full max-w-sm rounded-sm object-contain"
               />
             </div>
