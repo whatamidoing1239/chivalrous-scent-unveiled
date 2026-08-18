@@ -427,10 +427,10 @@ function Index() {
         </section>
       </main>
 
-      <footer className="border-t border-border bg-ink text-ivory">
+      <footer className="border-t border-border bg-background">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-2">
           <div>
-            <Wordmark className="text-ivory" />
+            <Wordmark className="text-ink" />
             <p className="mt-4 font-display text-xl text-silver italic">
               Fragrance for those who lead differently.
             </p>
@@ -440,7 +440,7 @@ function Index() {
                   <a
                     key={l}
                     href="#top"
-                    className="text-sm text-silver transition-colors hover:text-ivory"
+                    className="text-sm text-muted-foreground transition-colors hover:text-ink"
                   >
                     {l}
                   </a>
@@ -455,7 +455,7 @@ function Index() {
               setSubscribed(true);
             }}
           >
-            <label htmlFor="email" className="rule-label text-silver">
+            <label htmlFor="email" className="rule-label text-muted-foreground">
               Enter the Inner Circle
             </label>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row md:justify-end">
@@ -464,21 +464,21 @@ function Index() {
                 type="email"
                 required
                 placeholder="your@email.com"
-                className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-silver focus:outline-none sm:w-64"
+                className="w-full rounded-sm border border-input bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-ink focus:outline-none sm:w-64"
               />
               <button
                 type="submit"
-                className="rounded-sm border border-silver/50 px-5 py-3 text-xs tracking-[0.2em] uppercase text-ivory transition-colors hover:bg-ivory hover:text-ink"
+                className="rounded-sm bg-ink px-5 py-3 text-xs tracking-[0.2em] uppercase text-ivory transition-colors hover:bg-ink/85"
               >
                 Subscribe
               </button>
             </div>
-            <p aria-live="polite" className="mt-3 min-h-5 text-sm text-silver">
+            <p aria-live="polite" className="mt-3 min-h-5 text-sm text-muted-foreground">
               {subscribed ? "Welcome to the Inner Circle." : ""}
             </p>
           </form>
         </div>
-        <div className="border-t border-ivory/10 py-6 text-center text-xs text-silver">
+        <div className="border-t border-border py-6 text-center text-xs text-muted-foreground">
           © 2026 Sarkar. All rights reserved.
         </div>
       </footer>
