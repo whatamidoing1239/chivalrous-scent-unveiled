@@ -234,6 +234,7 @@ function Index() {
                 width={760}
                 height={760}
                 fetchPriority="high"
+                decoding="async"
                 className="relative w-full max-w-md rounded-sm object-contain"
               />
             </div>
@@ -351,7 +352,7 @@ function Index() {
         </section>
 
         {/* Notes */}
-        <section id="notes" className="border-t border-border bg-card/50">
+        <section id="notes" className="defer-paint border-t border-border bg-card/50">
           <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
             <h2 className="max-w-2xl font-display text-4xl font-semibold text-ink sm:text-5xl">
               A Composition of Quiet Strength
@@ -374,7 +375,7 @@ function Index() {
         </section>
 
         {/* Story */}
-        <section id="story" className="border-t border-border bg-background">
+        <section id="story" className="defer-paint border-t border-border bg-background">
           <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 md:grid-cols-2 md:py-28">
             <div className="relative flex justify-center md:order-2">
               <div
@@ -385,6 +386,7 @@ function Index() {
                 src={bottle.url}
                 alt={ALT}
                 loading="lazy"
+                decoding="async"
                 width={760}
                 height={760}
                 className="relative w-full max-w-sm rounded-sm object-contain"
@@ -405,7 +407,7 @@ function Index() {
         </section>
 
         {/* Offers / Shop */}
-        <section id="shop" className="border-t border-border bg-card/50">
+        <section id="shop" className="defer-paint border-t border-border bg-card/50">
           <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 md:py-28">
             <h2 className="font-display text-4xl font-semibold text-ink sm:text-5xl">
               Offers
@@ -428,7 +430,7 @@ function Index() {
         </section>
       </main>
 
-      <footer className="border-t border-border bg-background">
+      <footer className="defer-paint border-t border-border bg-background">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-2">
           <div>
             <Wordmark className="text-ink" />
