@@ -55,7 +55,7 @@ const ALT =
 
 const SIZES = [
   { label: "50ML", price: 999 },
-  { label: "100ML", price: 1499 },
+  { label: "100ML", price: 2000 },
   { label: "200ML", price: 2499 },
 ];
 
@@ -144,7 +144,7 @@ function Index() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("100ML");
 
-  const currentPrice = SIZES.find((s) => s.label === selectedSize)?.price ?? 1499;
+  const currentPrice = SIZES.find((s) => s.label === selectedSize)?.price ?? 2000;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
