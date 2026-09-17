@@ -87,6 +87,7 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "google-site-verification", content: "5JqYrWRfoa103D6NE2OPYWeEPHFwW1onWdV7AoJETnk" },
     ],
     links: [
       {
