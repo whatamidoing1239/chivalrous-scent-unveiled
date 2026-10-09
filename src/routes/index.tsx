@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import bottle from "@/assets/chivalrous-bottle.webp.asset.json";
 
@@ -20,10 +20,106 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "preload", as: "image", href: bottle.url, fetchpriority: "high" }],
+    links: [
+      { rel: "canonical", href: SITE },
+      { rel: "preload", as: "image", href: bottle.url, fetchpriority: "high" },
+    ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(JSON_LD) }],
   }),
   component: Index,
 });
+
+const SITE = "https://chivalrous-scent-unveiled.lovable.app/";
+export const SOCIALS = [
+  { label: "Instagram", href: "https://www.instagram.com/houseofsarkar" },
+  { label: "X", href: "https://x.com/houseofsarkar" },
+  { label: "YouTube", href: "https://www.youtube.com/@houseofsarkar" },
+  { label: "Facebook", href: "https://www.facebook.com/people/Houseofsarkar/61586511428837/" },
+];
+const UPDATED = "2026-10-09";
+
+const FAQ = [
+  {
+    q: "What does Chivalrous by Sarkar smell like?",
+    a: "Chivalrous is a woody-spicy parfum. It opens with bergamot, black pepper and saffron, settles into a heart of cedarwood, iris and smooth leather, and dries down to oud, amber and patchouli.",
+  },
+  {
+    q: "How long does Chivalrous last?",
+    a: "Chivalrous is a parfum with a 25% oil concentration, the highest strength in the Sarkar range. Most wearers notice the scent through a full working day, with the oud and amber base lasting into the evening.",
+  },
+  {
+    q: "Is Chivalrous a men's or unisex fragrance?",
+    a: "Chivalrous is unisex. Its leather and woods read as classically masculine, but Sarkar designs every expression to be worn by anyone who wants a confident, composed signature.",
+  },
+  {
+    q: "When should I wear Chivalrous?",
+    a: "Chivalrous is built for workdays, evenings and everyday wear. Two to four sprays on the neck and wrists are enough for an office; add one more for an evening out.",
+  },
+  {
+    q: "How much does Chivalrous cost and how fast does it ship?",
+    a: "Chivalrous 100 ml costs ₹2,000 including all taxes, with 50 ml at ₹999 and 200 ml at ₹2,499. Every order ships free within 24 to 36 hours and includes two 7 ml freebies.",
+  },
+];
+
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": SITE + "#org",
+      name: "Sarkar",
+      alternateName: "House of Sarkar",
+      url: SITE,
+      description:
+        "Sarkar is a premium, unisex fragrance house built on everyday authority, crafting parfums at 25% oil concentration.",
+      founder: { "@type": "Person", name: "Bhuvan Bam" },
+      sameAs: SOCIALS.map((s) => s.href).concat("https://www.sarkar.store/"),
+    },
+    { "@type": "WebSite", "@id": SITE + "#site", name: "CHIVALROUS by Sarkar", url: SITE, publisher: { "@id": SITE + "#org" } },
+    {
+      "@type": "Product",
+      name: "Chivalrous Parfum",
+      brand: { "@type": "Brand", name: "Sarkar" },
+      image: bottle.url,
+      description:
+        "A unisex woody-spicy parfum with bergamot, black pepper, saffron, cedarwood, iris, leather, oud, amber and patchouli. 25% oil concentration.",
+      category: "Fragrance",
+      offers: [
+        { size: "50 ml", price: 999 },
+        { size: "100 ml", price: 2000 },
+        { size: "200 ml", price: 2499 },
+      ].map((o) => ({
+        "@type": "Offer",
+        name: `Chivalrous ${o.size}`,
+        price: o.price,
+        priceCurrency: "INR",
+        availability: "https://schema.org/InStock",
+        url: SITE + "#shop",
+        seller: { "@id": SITE + "#org" },
+        shippingDetails: { "@type": "OfferShippingDetails", shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "INR" } },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Sarkar", item: SITE },
+        { "@type": "ListItem", position: 2, name: "Chivalrous", item: SITE + "#fragrance" },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+    {
+      "@type": "WebPage",
+      url: SITE,
+      name: "CHIVALROUS by Sarkar",
+      dateModified: UPDATED,
+      author: { "@id": SITE + "#org" },
+      publisher: { "@id": SITE + "#org" },
+    },
+  ],
+};
 
 const NAV = [
   { label: "The Fragrance", href: "#fragrance" },
@@ -37,16 +133,19 @@ const NOTES = [
     tier: "Top Notes",
     title: "The First Move",
     copy: "Bergamot, black pepper and saffron create a bright, confident opening.",
+    detail: "These are the notes you smell in the first 15 minutes: citrus lift, dry heat and a golden saffron glow.",
   },
   {
     tier: "Heart Notes",
     title: "The Noble Core",
     copy: "Cedarwood, iris and smooth leather reveal controlled strength.",
+    detail: "The heart carries the scent through the working day, polished rather than loud.",
   },
   {
     tier: "Base Notes",
     title: "The Lasting Legacy",
     copy: "Oud, amber and patchouli leave a warm, memorable trail.",
+    detail: "The base lingers on skin and clothing into the evening, long after the first spray.",
   },
 ];
 
@@ -263,9 +362,10 @@ function Index() {
               </p>
 
               <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-                A commanding blend of bright spice, polished woods and smoky
-                warmth—created for the man who leads with courage and leaves
-                with grace.
+                Chivalrous is a unisex parfum by Sarkar with a 25% oil
+                concentration. It is a commanding blend of bright spice,
+                polished woods and smoky warmth—created for the man who leads
+                with courage and leaves with grace.
               </p>
 
               <div className="mt-8 flex items-baseline gap-3">
@@ -368,6 +468,9 @@ function Index() {
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                     {n.copy}
                   </p>
+                  {"detail" in n && (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{(n as { detail: string }).detail}</p>
+                  )}
                 </article>
               ))}
             </div>
@@ -402,6 +505,22 @@ function Index() {
                 for those who move with purpose, protect what matters and never
                 need to demand attention.
               </p>
+              <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground">
+                Sarkar is a premium, unisex fragrance house built on everyday
+                authority. Every one of its four expressions is a parfum at 25%
+                oil concentration, made for ordinary days and the extraordinary
+                people who live them.
+              </p>
+              <blockquote className="mt-6 max-w-lg border-l-2 border-ink pl-4 text-base italic text-ink">
+                “Anyone can raise their voice. Few can raise the standards.
+                Sarkar is for the ones who set it.”
+                <footer className="mt-2 text-sm not-italic text-muted-foreground">
+                  — Bhuvan Bam, Founder, Sarkar
+                </footer>
+              </blockquote>
+              <Link to="/about" className="mt-6 inline-block text-sm font-semibold underline underline-offset-4 text-ink">
+                Know Sarkar
+              </Link>
             </div>
           </div>
         </section>
@@ -428,6 +547,26 @@ function Index() {
             </div>
           </div>
         </section>
+        {/* FAQ */}
+        <section id="faq" className="defer-paint border-t border-border bg-background">
+          <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 md:py-28">
+            <h2 className="font-display text-4xl font-semibold text-ink sm:text-5xl">
+              Chivalrous, Answered
+            </h2>
+            <div className="mt-10 divide-y divide-border">
+              {FAQ.map((f) => (
+                <div key={f.q} className="py-6">
+                  <h3 className="text-lg font-semibold text-ink">{f.q}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-xs text-muted-foreground">
+              Written by the Sarkar fragrance team · Last updated{" "}
+              <time dateTime={UPDATED}>9 October 2026</time>
+            </p>
+          </div>
+        </section>
       </main>
 
       <footer className="defer-paint border-t border-border bg-background">
@@ -438,17 +577,21 @@ function Index() {
               Fragrance for those who lead differently.
             </p>
             <nav aria-label="Footer" className="mt-8 flex flex-wrap gap-x-7 gap-y-3">
-              {["About", "Contact", "Shipping", "Returns", "Privacy", "Instagram"].map(
-                (l) => (
-                  <a
-                    key={l}
-                    href="#top"
-                    className="text-sm text-muted-foreground transition-colors hover:text-ink"
-                  >
-                    {l}
-                  </a>
-                ),
-              )}
+              <Link to="/about" className="text-sm text-muted-foreground transition-colors hover:text-ink">
+                About
+              </Link>
+              {["Contact", "Shipping", "Returns", "Privacy"].map((l) => (
+                <a key={l} href="#top" className="text-sm text-muted-foreground transition-colors hover:text-ink">
+                  {l}
+                </a>
+              ))}
+            </nav>
+            <nav aria-label="Social" className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
+              {SOCIALS.map((s) => (
+                <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer me" className="text-sm text-muted-foreground transition-colors hover:text-ink">
+                  {s.label}
+                </a>
+              ))}
             </nav>
           </div>
           <form
