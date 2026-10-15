@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SOCIALS } from "./index";
+import { SOCIALS, SUPPORT, UPDATED, UPDATED_LABEL, BRAND_SOURCE, IDENTITY_SOURCE, SITE } from "@/lib/brand";
 
 const URL = "https://chivalrous-scent-unveiled.lovable.app/about";
 const TITLE = "Know Sarkar | The House Behind CHIVALROUS";
@@ -26,12 +26,10 @@ export const Route = createFileRoute("/about")({
           "@type": "AboutPage",
           url: URL,
           name: TITLE,
-          mainEntity: {
-            "@type": "Organization",
-            name: "Sarkar",
-            founder: { "@type": "Person", name: "Bhuvan Bam" },
-            sameAs: SOCIALS.map((s) => s.href).concat("https://www.sarkar.store/"),
-          },
+          dateModified: UPDATED,
+          isPartOf: { "@id": SITE + "#site" },
+          mainEntity: { "@id": SITE + "#org" },
+          citation: [IDENTITY_SOURCE, BRAND_SOURCE],
         }),
       },
     ],
@@ -52,9 +50,11 @@ function About() {
         </h1>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
           Sarkar is a premium, unisex fragrance house built on everyday
-          authority. It offers four expressions under one signature, and each is
-          a parfum at 25% oil concentration, made for ordinary days and the
-          extraordinary people who live them.
+          authority.
+        </p>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          Four expressions, one signature, each a parfum at 25% oil concentration,
+          made for ordinary days and the extraordinary people who live them.
         </p>
         <blockquote className="mt-8 border-l-2 border-ink pl-4 text-lg italic text-ink">
           “Anyone can raise their voice. Few can raise the standards. Sarkar is
@@ -67,11 +67,25 @@ function About() {
           Built for the aspirational leader
         </h2>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-          Sarkar is for those who understand that presence is a choice. Unisex in
-          spirit and uncompromising in intent, it is made for those who own the
-          air they breathe. Chivalrous, the house's chess-king parfum, carries
-          that idea in a blend of spice, woods and oud.
+          You don’t need to raise your voice to make an impression. Sarkar’s
+          identity is about the standards you set in everyday life. If you enjoy
+          spice, woods and oud, Chivalrous is the house’s unisex chess-king parfum
+          to explore. The bottle reflects the same idea: presence without noise.
         </p>
+        <h2 className="mt-12 font-display text-3xl font-semibold text-ink">Where this information comes from</h2>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          According to <a href={IDENTITY_SOURCE} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Sarkar’s official identity page</a>,
+          the house offers four unisex parfums at 25% oil concentration. The founder’s
+          words above come from that page. You can explore the current range in
+          <a href={BRAND_SOURCE} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4"> Sarkar’s official Shop All collection</a>.
+        </p>
+        <p className="mt-6 text-xs text-muted-foreground">Last updated <time dateTime={UPDATED}>{UPDATED_LABEL}</time></p>
+        <h2 className="mt-12 font-display text-3xl font-semibold text-ink">Talk to customer support</h2>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">Have a question about a fragrance or your order? Contact Sarkar’s customer support.</p>
+        <ul className="mt-4 space-y-2 text-sm">
+          <li><a href={`mailto:${SUPPORT.email}`} className="underline underline-offset-4">{SUPPORT.email}</a></li>
+          <li><a href={SUPPORT.phoneHref} className="underline underline-offset-4">{SUPPORT.phone}</a></li>
+        </ul>
         <h2 className="mt-12 font-display text-3xl font-semibold text-ink">Find Sarkar</h2>
         <ul className="mt-4 space-y-2 text-sm">
           <li>
