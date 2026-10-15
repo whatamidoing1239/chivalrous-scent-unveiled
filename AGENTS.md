@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Keep shared brand facts and citation metadata in a browser-safe library module, not a content route, so About does not import the product page runtime.
+- Keep structured offers aligned with visible size prices; add review and aggregate-rating markup only for verifiable, visible customer feedback.

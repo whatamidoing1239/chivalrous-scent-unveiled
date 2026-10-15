@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import bottle from "@/assets/chivalrous-bottle.webp.asset.json";
+import { SITE, SOCIALS, SUPPORT, UPDATED, UPDATED_LABEL, BRAND_SOURCE, IDENTITY_SOURCE, ORGANIZATION } from "@/lib/brand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,25 +19,19 @@ export const Route = createFileRoute("/")({
           "Power, without the noise. A commanding blend of bergamot, leather and oud in a deep navy chess-king bottle.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE },
+      { property: "og:image", content: new URL(bottle.url, SITE).href },
+      { name: "twitter:image", content: new URL(bottle.url, SITE).href },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "canonical", href: SITE },
-      { rel: "preload", as: "image", href: bottle.url, fetchpriority: "high" },
+      { rel: "preload", as: "image", href: bottle.url, fetchPriority: "high" },
     ],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(JSON_LD) }],
   }),
   component: Index,
 });
-
-const SITE = "https://chivalrous-scent-unveiled.lovable.app/";
-export const SOCIALS = [
-  { label: "Instagram", href: "https://www.instagram.com/houseofsarkar" },
-  { label: "X", href: "https://x.com/houseofsarkar" },
-  { label: "YouTube", href: "https://www.youtube.com/@houseofsarkar" },
-  { label: "Facebook", href: "https://www.facebook.com/people/Houseofsarkar/61586511428837/" },
-];
-const UPDATED = "2026-10-09";
 
 const FAQ = [
   {
@@ -45,15 +40,15 @@ const FAQ = [
   },
   {
     q: "How long does Chivalrous last?",
-    a: "Chivalrous is a parfum with a 25% oil concentration, the highest strength in the Sarkar range. Most wearers notice the scent through a full working day, with the oud and amber base lasting into the evening.",
+    a: "Chivalrous is a parfum with a 25% oil concentration. That tells you its concentration, not an exact wear time: how long you smell it depends on your skin, the weather and how much you apply. Try a small amount first and see how the woody, amber base develops on you.",
   },
   {
     q: "Is Chivalrous a men's or unisex fragrance?",
-    a: "Chivalrous is unisex. Its leather and woods read as classically masculine, but Sarkar designs every expression to be worn by anyone who wants a confident, composed signature.",
+    a: "Chivalrous by Sarkar is a unisex woody-spicy parfum, not a fragrance reserved for men. If you enjoy citrus, pepper, leather and warm woods, you can choose it regardless of gender. Choose by the notes you like and how the scent feels on your skin, rather than a label.",
   },
   {
     q: "When should I wear Chivalrous?",
-    a: "Chivalrous is built for workdays, evenings and everyday wear. Two to four sprays on the neck and wrists are enough for an office; add one more for an evening out.",
+    a: "You can wear Chivalrous by Sarkar on workdays, for an evening out or as your everyday scent. Its woody-spicy profile pairs a bright opening with a warmer base. Start lightly in shared spaces and adjust to your preference; the right amount depends on your setting and how it wears on you.",
   },
   {
     q: "How much does Chivalrous cost and how fast does it ship?",
@@ -61,61 +56,64 @@ const FAQ = [
   },
 ];
 
+const OFFERS = [
+  { size: "50 ml", price: 999 },
+  { size: "100 ml", price: 2000 },
+  { size: "200 ml", price: 2499 },
+].map((offer) => ({
+  "@type": "Offer",
+  "@id": SITE + "#offer-" + offer.size.replace(" ", ""),
+  name: `Chivalrous ${offer.size}`,
+  price: offer.price,
+  priceCurrency: "INR",
+  availability: "https://schema.org/InStock",
+  url: SITE,
+  itemOffered: { "@id": SITE + "#product" },
+  seller: { "@id": SITE + "#org" },
+}));
+
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": SITE + "#org",
-      name: "Sarkar",
-      alternateName: "House of Sarkar",
-      url: SITE,
-      description:
-        "Sarkar is a premium, unisex fragrance house built on everyday authority, crafting parfums at 25% oil concentration.",
-      founder: { "@type": "Person", name: "Bhuvan Bam" },
-      sameAs: SOCIALS.map((s) => s.href).concat("https://www.sarkar.store/"),
-    },
+    ORGANIZATION,
     { "@type": "WebSite", "@id": SITE + "#site", name: "CHIVALROUS by Sarkar", url: SITE, publisher: { "@id": SITE + "#org" } },
     {
       "@type": "Product",
+      "@id": SITE + "#product",
+      url: SITE,
       name: "Chivalrous Parfum",
       brand: { "@type": "Brand", name: "Sarkar" },
-      image: bottle.url,
+      image: new URL(bottle.url, SITE).href,
       description:
         "A unisex woody-spicy parfum with bergamot, black pepper, saffron, cedarwood, iris, leather, oud, amber and patchouli. 25% oil concentration.",
       category: "Fragrance",
-      offers: [
-        { size: "50 ml", price: 999 },
-        { size: "100 ml", price: 2000 },
-        { size: "200 ml", price: 2499 },
-      ].map((o) => ({
-        "@type": "Offer",
-        name: `Chivalrous ${o.size}`,
-        price: o.price,
-        priceCurrency: "INR",
-        availability: "https://schema.org/InStock",
-        url: SITE + "#shop",
-        seller: { "@id": SITE + "#org" },
-        shippingDetails: { "@type": "OfferShippingDetails", shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "INR" } },
-      })),
+      offers: OFFERS.map((offer) => ({ "@id": offer["@id"] })),
     },
+    ...OFFERS,
     {
       "@type": "BreadcrumbList",
+      "@id": SITE + "#breadcrumb",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Sarkar", item: SITE },
-        { "@type": "ListItem", position: 2, name: "Chivalrous", item: SITE + "#fragrance" },
+        { "@type": "ListItem", position: 1, name: "CHIVALROUS by Sarkar", item: SITE },
       ],
     },
     {
       "@type": "FAQPage",
+      "@id": SITE + "#faq",
+      url: SITE + "#faq",
+      isPartOf: { "@id": SITE + "#page" },
       mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
     {
       "@type": "WebPage",
+      "@id": SITE + "#page",
       url: SITE,
       name: "CHIVALROUS by Sarkar",
       dateModified: UPDATED,
-      author: { "@id": SITE + "#org" },
+      isPartOf: { "@id": SITE + "#site" },
+      mainEntity: { "@id": SITE + "#product" },
+      breadcrumb: { "@id": SITE + "#breadcrumb" },
+      citation: [BRAND_SOURCE, IDENTITY_SOURCE],
       publisher: { "@id": SITE + "#org" },
     },
   ],
@@ -132,20 +130,20 @@ const NOTES = [
   {
     tier: "Top Notes",
     title: "The First Move",
-    copy: "Bergamot, black pepper and saffron create a bright, confident opening.",
-    detail: "These are the notes you smell in the first 15 minutes: citrus lift, dry heat and a golden saffron glow.",
+    copy: "What do you smell first in Chivalrous? Its top notes are bergamot, black pepper and saffron: a citrus-and-spice opening to this woody-spicy parfum.",
+    detail: "Bergamot brings brightness, while pepper and saffron add spice. These opening notes introduce the scent before its woody heart develops; the pace of that change varies on your skin.",
   },
   {
     tier: "Heart Notes",
     title: "The Noble Core",
-    copy: "Cedarwood, iris and smooth leather reveal controlled strength.",
-    detail: "The heart carries the scent through the working day, polished rather than loud.",
+    copy: "Chivalrous’s heart notes are cedarwood, iris and leather. This is the middle of the fragrance: the woody, softer layer you notice as the bright opening settles.",
+    detail: "If you enjoy woods with a leather character, this is the part to pay attention to when trying Chivalrous. The heart connects its citrus-and-spice opening to the warmer oud, amber and patchouli base.",
   },
   {
     tier: "Base Notes",
     title: "The Lasting Legacy",
-    copy: "Oud, amber and patchouli leave a warm, memorable trail.",
-    detail: "The base lingers on skin and clothing into the evening, long after the first spray.",
+    copy: "Chivalrous’s base notes are oud, amber and patchouli. They form the warm, woody foundation you notice as the fragrance develops after its opening and heart.",
+    detail: "If you prefer a warmer finish to a fresh citrus scent, these are the notes to look for. Let Chivalrous settle on your skin before deciding; your experience of the base and its wear time can vary.",
   },
 ];
 
@@ -363,9 +361,9 @@ function Index() {
 
               <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
                 Chivalrous is a unisex parfum by Sarkar with a 25% oil
-                concentration. It is a commanding blend of bright spice,
-                polished woods and smoky warmth—created for the man who leads
-                with courage and leaves with grace.
+                concentration. If you enjoy bright spice, polished woods and
+                smoky warmth, this is a scent to explore. It opens with citrus
+                and spice, then develops into leather, woods and a warm oud base.
               </p>
 
               <div className="mt-8 flex items-baseline gap-3">
@@ -513,7 +511,7 @@ function Index() {
               </p>
               <blockquote className="mt-6 max-w-lg border-l-2 border-ink pl-4 text-base italic text-ink">
                 “Anyone can raise their voice. Few can raise the standards.
-                Sarkar is for the ones who set it.”
+                Sarkar is for the ones who set it. Built for you. The One &amp; Only.”
                 <footer className="mt-2 text-sm not-italic text-muted-foreground">
                   — Bhuvan Bam, Founder, Sarkar
                 </footer>
@@ -562,8 +560,14 @@ function Index() {
               ))}
             </div>
             <p className="mt-8 text-xs text-muted-foreground">
-              Written by the Sarkar fragrance team · Last updated{" "}
-              <time dateTime={UPDATED}>9 October 2026</time>
+              Last updated{" "}
+              <time dateTime={UPDATED}>{UPDATED_LABEL}</time>
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              According to <a href={IDENTITY_SOURCE} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Sarkar’s official identity page</a>,
+              its four expressions are unisex parfums at 25% oil concentration.
+              For the current brand range, see <a href={BRAND_SOURCE} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Sarkar’s official Shop All collection</a>.
+              These sources describe Sarkar’s brand; the Chivalrous notes and prices are those displayed on this page.
             </p>
           </div>
         </section>
@@ -593,6 +597,11 @@ function Index() {
                 </a>
               ))}
             </nav>
+            <div className="mt-6 space-y-2 text-sm text-muted-foreground">
+              <p className="font-semibold text-ink">Customer support</p>
+              <p><a href={`mailto:${SUPPORT.email}`} className="underline underline-offset-4">{SUPPORT.email}</a></p>
+              <p><a href={SUPPORT.phoneHref} className="underline underline-offset-4">{SUPPORT.phone}</a></p>
+            </div>
           </div>
           <form
             className="md:justify-self-end md:text-right"
