@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SOCIALS, SUPPORT, UPDATED, UPDATED_LABEL, BRAND_SOURCE, IDENTITY_SOURCE, SITE } from "@/lib/brand";
+import { SOCIALS, SUPPORT, UPDATED, UPDATED_LABEL, BRAND_SOURCE, IDENTITY_SOURCE, SITE, ORGANIZATION } from "@/lib/brand";
 
 const URL = "https://chivalrous-scent-unveiled.lovable.app/about";
 const TITLE = "Know Sarkar | The House Behind CHIVALROUS";
@@ -23,13 +23,22 @@ export const Route = createFileRoute("/about")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
+          "@graph": [ORGANIZATION, {
           "@type": "AboutPage",
+          "@id": URL + "#page",
           url: URL,
           name: TITLE,
           dateModified: UPDATED,
           isPartOf: { "@id": SITE + "#site" },
           mainEntity: { "@id": SITE + "#org" },
           citation: [IDENTITY_SOURCE, BRAND_SOURCE],
+          }, {
+            "@type": "WebSite",
+            "@id": SITE + "#site",
+            url: SITE,
+            name: "CHIVALROUS by Sarkar",
+            publisher: { "@id": SITE + "#org" },
+          }],
         }),
       },
     ],
