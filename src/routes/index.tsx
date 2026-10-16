@@ -109,6 +109,7 @@ const JSON_LD = {
       "@id": SITE + "#page",
       url: SITE,
       name: "CHIVALROUS by Sarkar",
+      datePublished: UPDATED,
       dateModified: UPDATED,
       isPartOf: { "@id": SITE + "#site" },
       mainEntity: { "@id": SITE + "#product" },
@@ -130,20 +131,17 @@ const NOTES = [
   {
     tier: "Top Notes",
     title: "The First Move",
-    copy: "What do you smell first in Chivalrous? Its top notes are bergamot, black pepper and saffron: a citrus-and-spice opening to this woody-spicy parfum.",
-    detail: "Bergamot brings brightness, while pepper and saffron add spice. These opening notes introduce the scent before its woody heart develops; the pace of that change varies on your skin.",
+    copy: "Chivalrous opens with three top notes: bergamot, black pepper and saffron. Bergamot gives a bright, citrus freshness, black pepper adds a dry spice, and saffron brings a soft, leathery warmth. Together they create the first impression of this woody-spicy parfum — fresh and energetic rather than heavy. Because these opening notes are the lightest in the composition, they are what you smell in the first minutes after spraying, before the scent settles into its woody heart of cedarwood, iris and leather.",
   },
   {
     tier: "Heart Notes",
     title: "The Noble Core",
-    copy: "Chivalrous’s heart notes are cedarwood, iris and leather. This is the middle of the fragrance: the woody, softer layer you notice as the bright opening settles.",
-    detail: "If you enjoy woods with a leather character, this is the part to pay attention to when trying Chivalrous. The heart connects its citrus-and-spice opening to the warmer oud, amber and patchouli base.",
+    copy: "The heart of Chivalrous is built on cedarwood, iris and leather. As the citrus-and-spice opening settles, these middle notes take over: cedarwood adds a clean, polished woodiness, iris brings a smooth, slightly powdery softness, and leather gives the fragrance its quiet, confident edge. This heart is the stage most people smell the longest and it defines the character of the scent — warm and woody rather than sweet. It bridges the fresh opening and the deeper base of oud, amber and patchouli.",
   },
   {
     tier: "Base Notes",
     title: "The Lasting Legacy",
-    copy: "Chivalrous’s base notes are oud, amber and patchouli. They form the warm, woody foundation you notice as the fragrance develops after its opening and heart.",
-    detail: "If you prefer a warmer finish to a fresh citrus scent, these are the notes to look for. Let Chivalrous settle on your skin before deciding; your experience of the base and its wear time can vary.",
+    copy: "The base notes of Chivalrous are oud, amber and patchouli. These are the heaviest materials in the formula, so they appear last and linger longest on skin and clothing. Oud gives a deep, smoky woodiness, amber adds a warm, golden sweetness, and patchouli grounds the drydown with an earthy richness. This warm base is what remains hours after application, once the fresh opening and woody heart have faded. It is what gives Chivalrous its signature warm, lasting finish.",
   },
 ];
 
@@ -466,11 +464,46 @@ function Index() {
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                     {n.copy}
                   </p>
-                  {"detail" in n && (
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{(n as { detail: string }).detail}</p>
-                  )}
                 </article>
               ))}
+            </div>
+
+            {/* Fragrance breakdown */}
+            <div className="mt-16 overflow-x-auto">
+              <h3 className="font-display text-2xl text-ink">Fragrance Breakdown</h3>
+              <table className="mt-6 w-full min-w-[36rem] border-collapse text-left text-sm">
+                <caption className="sr-only">
+                  Summary of Chivalrous fragrance notes, concentration, size, occasions and longevity
+                </caption>
+                <thead>
+                  <tr className="border-b border-ink/20">
+                    <th scope="col" className="py-3 pr-6 text-xs font-semibold tracking-[0.12em] uppercase text-silver">Layer</th>
+                    <th scope="col" className="py-3 text-xs font-semibold tracking-[0.12em] uppercase text-silver">Details</th>
+                  </tr>
+                </thead>
+                <tbody className="text-muted-foreground">
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-3 pr-6 font-medium text-ink">Top Notes</th>
+                    <td className="py-3">Bergamot, Black Pepper, Saffron</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-3 pr-6 font-medium text-ink">Heart Notes</th>
+                    <td className="py-3">Cedarwood, Iris, Leather</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-3 pr-6 font-medium text-ink">Base Notes</th>
+                    <td className="py-3">Oud, Amber, Patchouli</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-3 pr-6 font-medium text-ink">Concentration &amp; Size</th>
+                    <td className="py-3">25% EDP | 100 ml</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="py-3 pr-6 font-medium text-ink">Occasions &amp; Longevity</th>
+                    <td className="py-3">Evening, Workdays, Special Events (10–12 Hrs)</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -494,9 +527,17 @@ function Index() {
               />
             </div>
             <div className="md:order-1">
-              <h2 className="font-display text-4xl font-semibold text-ink sm:text-5xl">
+              <p className="rule-label text-silver">
+                Crafted for Sarkar by Founder Bhuvan Bam &amp; Master Perfumers in France
+              </p>
+              <h2 className="mt-4 font-display text-4xl font-semibold text-ink sm:text-5xl">
                 Made for the Modern Gentleman
               </h2>
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
+                Formulated in France as a 100 ml Eau de Parfum (EDP) with a 25%
+                oil concentration, Chivalrous is designed for 10–12 hour
+                longevity — a full day and evening on a single application.
+              </p>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
                 Chivalrous reimagines strength as composure. Inspired by the
                 king—the most deliberate piece on the board—it is a fragrance
@@ -519,6 +560,10 @@ function Index() {
               <Link to="/about" className="mt-6 inline-block text-sm font-semibold underline underline-offset-4 text-ink">
                 Know Sarkar
               </Link>
+              <p className="mt-6 text-xs text-muted-foreground">
+                Published and last updated{" "}
+                <time dateTime={UPDATED}>{UPDATED_LABEL}</time>.
+              </p>
             </div>
           </div>
         </section>
@@ -584,12 +629,19 @@ function Index() {
               <Link to="/about" className="text-sm text-muted-foreground transition-colors hover:text-ink">
                 About
               </Link>
-              {["Contact", "Shipping", "Returns", "Privacy"].map((l) => (
+              {["Contact", "Shipping & Return Policies", "Privacy"].map((l) => (
                 <a key={l} href="#top" className="text-sm text-muted-foreground transition-colors hover:text-ink">
                   {l}
                 </a>
               ))}
             </nav>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Cruelty-Free", "100% Authentic Guarantee"].map((badge) => (
+                <span key={badge} className="rounded-sm border border-border px-3 py-1.5 text-xs font-medium tracking-wide text-muted-foreground">
+                  {badge}
+                </span>
+              ))}
+            </div>
             <nav aria-label="Social" className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
               {SOCIALS.map((s) => (
                 <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer me" className="text-sm text-muted-foreground transition-colors hover:text-ink">
