@@ -109,6 +109,7 @@ const JSON_LD = {
       "@id": SITE + "#page",
       url: SITE,
       name: "CHIVALROUS by Sarkar",
+      datePublished: UPDATED,
       dateModified: UPDATED,
       isPartOf: { "@id": SITE + "#site" },
       mainEntity: { "@id": SITE + "#product" },
@@ -559,6 +560,10 @@ function Index() {
               <Link to="/about" className="mt-6 inline-block text-sm font-semibold underline underline-offset-4 text-ink">
                 Know Sarkar
               </Link>
+              <p className="mt-6 text-xs text-muted-foreground">
+                Published and last updated{" "}
+                <time dateTime={UPDATED}>{UPDATED_LABEL}</time>.
+              </p>
             </div>
           </div>
         </section>
@@ -624,12 +629,19 @@ function Index() {
               <Link to="/about" className="text-sm text-muted-foreground transition-colors hover:text-ink">
                 About
               </Link>
-              {["Contact", "Shipping", "Returns", "Privacy"].map((l) => (
+              {["Contact", "Shipping & Return Policies", "Privacy"].map((l) => (
                 <a key={l} href="#top" className="text-sm text-muted-foreground transition-colors hover:text-ink">
                   {l}
                 </a>
               ))}
             </nav>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Cruelty-Free", "100% Authentic Guarantee"].map((badge) => (
+                <span key={badge} className="rounded-sm border border-border px-3 py-1.5 text-xs font-medium tracking-wide text-muted-foreground">
+                  {badge}
+                </span>
+              ))}
+            </div>
             <nav aria-label="Social" className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
               {SOCIALS.map((s) => (
                 <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer me" className="text-sm text-muted-foreground transition-colors hover:text-ink">
